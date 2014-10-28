@@ -150,16 +150,27 @@
         });
 
         function listProducts(root) {
-            console.log(root);
+            
+            $('#results').empty();
+
             var products = root.products;
 
-            for (i = 0; i < products.length; i++) {
-                
-                var stores = products[i].stores;
+            if (products.length > 0) {
+                for (i = 0; i < products.length; i++) {
+                    
+                    var stores = products[i].stores;
 
-                var template = $('#storeLocation').html();
-                var html = Mustache.to_html(template, { 'stores': stores });
-                $('#results').html(html);
+                    if (stores.length > 0) {
+
+                        var template = $('#storeLocation').html();
+                        var html = Mustache.to_html(template, { 'stores': stores });
+                        $('#results').html(html);
+                    } else {
+                        $('#results').html("<p style='margin:10px;'>Sorry, we could not find any stores that have that SKU in stock.</p>");
+                    }
+                }
+            } else {
+                $('#results').html("<p style='margin:10px;'>Sorry, we could not find any products matching that SKU or stores that have that SKU in stock.</p>");
             }
         }
     </script>
