@@ -1,5 +1,4 @@
-﻿
-@{
+﻿@{
     ViewBag.Title = "Index";
 }
 
@@ -97,7 +96,7 @@
         var sku = "sku=" + $("#productsku").val();
         var area = "area(" + $("#zipcode").val() + "," +  $("#distance").val() + ")";
 
-        var url = "http://api.remix.bestbuy.com/v1/products(" + sku + ")+stores(" + area + ")?format=json&apiKey=[YOUR_BEST_BUY_KEY]&show=sku%2Cstores";
+        var url = "http://api.remix.bestbuy.com/v1/products(" + sku + ")+stores(" + area + ")?format=json&apiKey=@(ViewBag.BestBuyKey)&show=sku%2Cstores";
 
                 $.ajax({
                     type: "GET",

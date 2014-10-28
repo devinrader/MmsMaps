@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -12,14 +13,15 @@ namespace MmsMaps.Controllers
         // GET: Home
         public ActionResult Index()
         {
+            ViewBag.BestBuyKey = ConfigurationManager.AppSettings["BestBuyKey"];
             return View();
         }
 
         public ActionResult SendMap(string fromAddress, string toAddress, string toPhoneNumber)
         {
-            string accountSid = "[YOUR_TWILIO_ACCOUNT_SID]";
-            string authToken = "[YOUR_TWILIO_AUTH_TOKEN]";
-            string fromPhoneNumber = "[YOUR_TWILIO_PHONE_NUMBER]";
+            string accountSid = ConfigurationManager.AppSettings["TwilioAccountSid"];
+            string authToken = ConfigurationManager.AppSettings["TwilioAuthToken"]; ;
+            string fromPhoneNumber = ConfigurationManager.AppSettings["TwilioFromNumber"];
 
             var client = new TwilioRestClient(accountSid, authToken);
             var result = client.SendMessage(
@@ -27,7 +29,7 @@ namespace MmsMaps.Controllers
                 toPhoneNumber,
                 null,
                 new string[] {
-                    string.Format("http://dev.virtualearth.net/REST/v1/Imagery/Map/Road/Routes?wp.0={0};64;1&wp.1={1};66;2&key=[YOUR_BING_MAPS_KEY]", Server.UrlEncode(fromAddress), Server.UrlEncode(toAddress))
+                    string.Format("http://dev.virtualearth.net/REST/v1/Imagery/Map/Road/Routes?wp.0={0};64;1&wp.1={1};66;2&key={2}", Server.UrlEncode(fromAddress), Server.UrlEncode(toAddress), ConfigurationManager.AppSettings["BingMapsKey"])
                 });
 
             if (result.RestException != null)
