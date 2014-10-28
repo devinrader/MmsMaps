@@ -17,11 +17,11 @@ namespace MmsMaps.Controllers
 
         public ActionResult SendMap(string fromAddress, string toAddress, string toPhoneNumber)
         {
-            string accountsid = "[YOUR_TWILIO_ACCOUNT_SID]";
-            string authtoken = "[YOUR_TWILIO_AUTH_TOKEN]";
+            string accountSid = "[YOUR_TWILIO_ACCOUNT_SID]";
+            string authToken = "[YOUR_TWILIO_AUTH_TOKEN]";
             string fromPhoneNumber = "[YOUR_TWILIO_PHONE_NUMBER]";
 
-            var client = new TwilioRestClient(accountsid, authtoken);
+            var client = new TwilioRestClient(accountSid, authToken);
             var result = client.SendMessage(
                 fromPhoneNumber,
                 toPhoneNumber,
